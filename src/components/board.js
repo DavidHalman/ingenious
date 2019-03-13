@@ -1,19 +1,31 @@
 import React, { Component } from 'react'
-import { HexGrid, Layout, Hexagon } from 'react-hexgrid';
+import { HexGrid, Layout, Hexagon, Text, HexUtils, GridGenerator } from 'react-hexgrid';
+import configs from '../assets/configuration';
 import './board.css';
 
 class Board extends Component {
+    constructor(props) {
+        super(props);
+        
+    }
+
     render() {
+        const config = configs[this.props.gameSize];
+        const generator = GridGenerator.getGenerator(config.map);
+        const hexagons = generator.apply(this, config.mapProps);
+        const size = { x: config.layout.width, y: config.layout.height };
         return (
-            <HexGrid width={1200} height={800} viewBox="-50 -50 100 100">
-                <Layout size={{ x: 10, y: 10 }} flat={true} spacing={1.1} origin={{ x: 0, y: 0 }}>
-                    <Hexagon q={0} r={-1} s={0} />
-                    <Hexagon q={0} r={0} s={1} />
-                    <Hexagon q={0} r={1} s={0} />
-                    <Hexagon q={1} r={-1} s={0} />
-                    <Hexagon q={1} r={0} s={0} />
-                    <Hexagon q={-1} r={0} s={0} />
-                    <Hexagon q={-1} r={1} s={0} />
+            <HexGrid width={config.width} height={config.height}>
+                <Layout size={size} flat={config.layout.flat} spacing={config.layout.spacing} origin={config.origin}>
+                    {
+                    // note: key must be unique between re-renders.
+                    // using config.mapProps+i makes a new key when the goal template chnages.
+                    hexagons.map((hex, i) => (
+                        <Hexagon key={config.mapProps + i} q={hex.q} r={hex.r} s={hex.s} className="redHex">
+                        <Text>{HexUtils.getID(hex)}</Text>
+                        </Hexagon>
+                    ))
+                    }
                 </Layout>
             </HexGrid>
         )

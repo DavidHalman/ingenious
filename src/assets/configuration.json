@@ -1,0 +1,27 @@
+{
+    "Two Players": {
+        "width": 1000,
+        "height": 800,
+        "layout": { "width": 6, "height": 6, "flat": false, "spacing": 1.02 },
+        "origin": { "x": 0, "y": 0 },
+        "map": "hexagon",
+        "mapProps": [ 5 ]
+    },
+    "Three Players": {
+        "width": 1000,
+        "height": 800,
+        "layout": { "width": 6, "height": 6, "flat": false, "spacing": 1.02 },
+        "origin": { "x": 0, "y": 0 },
+        "map": "hexagon",
+        "mapProps": [ 6 ]
+    },
+    "Four Players": {
+        "width": 1000,
+        "height": 800,
+        "layout": { "width": 6, "height": 6, "flat": false, "spacing": 1.02 },
+        "origin": { "x": 0, "y": 0 },
+        "map": "hexagon",
+        "mapProps": [ 7 ]
+    }
+  }
+  
