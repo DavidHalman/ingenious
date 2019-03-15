@@ -34,30 +34,30 @@ svg g text {
   fill: red;
 } */
 
-.greyHex {
+.grey {
     fill: grey
 }
 
-.redHex {
+.red {
     fill: red
 }
 
-.orangeHex {
+.orange {
       fill: orange
 }
 
-.yellowHex {
+.yellow {
      fill: yellow
 }
 
-.greenHex {
+.green {
      fill: green
 }
 
-.blueHex {
+.blue {
      fill: blue
 }
 
-.purpleHex {
+.purple {
      fill: purple
 }

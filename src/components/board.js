@@ -3,6 +3,15 @@ import { HexGrid, Layout, Hexagon, Text, HexUtils, GridGenerator } from 'react-h
 import configs from '../assets/configuration';
 import './board.css';
 
+const colors = [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "purple"
+]
+
 class Board extends Component {
     constructor(props) {
         super(props);
@@ -14,9 +23,10 @@ class Board extends Component {
             q: hex.q,
             r: hex.r,
             s: hex.s,
-            color: "greyHex"
+            color: "grey"
         }))
         this.state = {
+            nextColor: 0,
             config,
             hexagons,
             size
@@ -28,13 +38,16 @@ class Board extends Component {
             // Switch pattern only for the hexagon that was clicked
             if (HexUtils.equals(source.state.hex, hex)) {
                 // Assign new pattern to _our_ data
-                hex.color = 'redHex'
+                hex.color = colors[this.state.nextColor]
             }
 
             return hex;
         });
 
-        this.setState({hexagons})
+        this.setState({
+            hexagons,
+            nextColor: Math.floor(Math.random() * 6)
+        })
     }
 
     render() {
