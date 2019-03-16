@@ -9,7 +9,8 @@ const colors = [
     "yellow",
     "green",
     "blue",
-    "purple"
+    "purple",
+    "grey"
 ]
 
 class Board extends Component {
@@ -23,7 +24,7 @@ class Board extends Component {
             q: hex.q,
             r: hex.r,
             s: hex.s,
-            color: "grey"
+            color: 6
         }))
         this.state = {
             config,
@@ -37,7 +38,7 @@ class Board extends Component {
             // Switch pattern only for the hexagon that was clicked
             if (HexUtils.equals(source.state.hex, hex)) {
                 // Assign new pattern to _our_ data
-                hex.color = colors[this.props.nextColor]
+                hex.color = this.props.nextColor
             }
 
             return hex;
@@ -62,7 +63,7 @@ class Board extends Component {
                             q={hex.q}
                             r={hex.r}
                             s={hex.s}
-                            className={hex.color}
+                            className={colors[hex.color]}
                             onClick={(e, s) => this.changeColor(e, s)}
                         >
                             <Text>{HexUtils.getID(hex)}</Text>
