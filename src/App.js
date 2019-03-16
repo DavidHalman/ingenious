@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Board from './components/board';
+import Scoreboard from './components/scoreboard';
 import './components/board.css';
 
 class App extends Component {
@@ -8,6 +9,8 @@ class App extends Component {
         this.state = {
             gameSize: 'Two Players',
             nextColor: 0,
+            score: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]],
+            turn: 0,
         };
     }
 
@@ -37,6 +40,7 @@ class App extends Component {
                     nextColor={this.state.nextColor}
                     getNextColor={() => this.getNextColor()}
                 />
+                <Scoreboard score={this.state.score}/>
             </div>
         );
     }
