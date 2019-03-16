@@ -26,7 +26,6 @@ class Board extends Component {
             color: "grey"
         }))
         this.state = {
-            nextColor: 0,
             config,
             hexagons,
             size
@@ -38,15 +37,14 @@ class Board extends Component {
             // Switch pattern only for the hexagon that was clicked
             if (HexUtils.equals(source.state.hex, hex)) {
                 // Assign new pattern to _our_ data
-                hex.color = colors[this.state.nextColor]
+                hex.color = colors[this.props.nextColor]
             }
 
             return hex;
         });
-
+        this.props.getNextColor()
         this.setState({
             hexagons,
-            nextColor: Math.floor(Math.random() * 6)
         })
     }
 

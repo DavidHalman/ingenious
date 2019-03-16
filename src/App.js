@@ -5,11 +5,18 @@ import './components/board.css';
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = { gameSize: 'Two Players' };
+        this.state = {
+            gameSize: 'Two Players',
+            nextColor: 0,
+        };
     }
 
     changeType(event) {
         this.setState({ gameSize: event.currentTarget.value });
+    }
+
+    getNextColor() {
+        this.setState({ nextColor: Math.floor(Math.random() * 6)})
     }
 
     render() {
@@ -24,7 +31,12 @@ class App extends Component {
                     </select>
                 </div>
                 <hr />
-                <Board gameSize={this.state.gameSize} />
+                <div>Next Color is {this.state.nextColor}</div>
+                <Board
+                    gameSize={this.state.gameSize}
+                    nextColor={this.state.nextColor}
+                    getNextColor={() => this.getNextColor()}
+                />
             </div>
         );
     }
