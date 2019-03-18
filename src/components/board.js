@@ -20,32 +20,48 @@ class Board extends Component {
         const generator = GridGenerator.getGenerator(config.map);
         let hexagons = generator.apply(this, config.mapProps);
         const size = { x: config.layout.width, y: config.layout.height };
-        hexagons = hexagons.map((hex, i) => ({
-            q: hex.q,
-            r: hex.r,
-            s: hex.s,
-            color: 6
-        }))
+
+        let hexArray = new Array(11).fill(6).map(() => new Array(11).fill(6).map(() => new Array(11).fill(6)));
+        hexagons = hexagons.map((hex, i) => {
+            hexArray[hex.q + 5][hex.r + 5][hex.s + 5] = 6
+            return {
+                q: hex.q,
+                r: hex.r,
+                s: hex.s,
+                color: 6
+            }
+        })
         this.state = {
             config,
             hexagons,
-            size
+            size,
+            hexArray,
         }
     }
 
     changeColor(event, source) {
+        let clickedHex
+        let hexArray = this.state.hexArray
         const hexagons = this.state.hexagons.map(hex => {
             // Switch pattern only for the hexagon that was clicked
             if (HexUtils.equals(source.state.hex, hex)) {
                 // Assign new pattern to _our_ data
                 hex.color = this.props.nextColor
+                hexArray[hex.q + 5][hex.r + 5][hex.s + 5] = hex.color
+                clickedHex = hex
             }
 
             return hex;
         });
+
+
+
+
+        this.props.updateScore(hexArray, clickedHex)
         this.props.getNextColor()
         this.setState({
             hexagons,
+            hexArray,
         })
     }
 
