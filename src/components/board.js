@@ -40,22 +40,29 @@ class Board extends Component {
     }
 
     changeColor(event, source) {
+        let clicked = false
         let clickedHex
         let hexArray = this.state.hexArray
         const hexagons = this.state.hexagons.map(hex => {
             // Switch pattern only for the hexagon that was clicked
             if (HexUtils.equals(source.state.hex, hex)) {
                 // Assign new pattern to _our_ data
-                hex.color = this.props.nextColor
-                hexArray[hex.q + 5][hex.r + 5][hex.s + 5] = hex.color
-                clickedHex = hex
+                if(hex.color != 6){
+                    clicked = true
+
+                } else {
+                    hex.color = this.props.nextColor
+                    hexArray[hex.q + 5][hex.r + 5][hex.s + 5] = hex.color
+                    clickedHex = hex
+                }
             }
 
             return hex;
         });
-
-
-
+        if (clicked){
+            alert("Piece already placed here. Choose a different location.")
+            return
+        }
 
         this.props.updateScore(hexArray, clickedHex)
         this.props.getNextColor()
