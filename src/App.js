@@ -22,6 +22,10 @@ class App extends Component {
         this.setState({ nextColor: Math.floor(Math.random() * 6)})
     }
 
+    isGameOver() {
+        return (this.state.turn == 91)
+    }
+
     updateScore(hexArray, hex) {
         let q = hex.q + 5
         let r = hex.r + 5
@@ -101,11 +105,25 @@ class App extends Component {
             }
         }
 
-        //update stqte of score
+        //update state of score
         this.setState({
             score,
             turn: turn + 1
+        }, () => {
+            if (this.isGameOver()){
+                alert("The game is over, the winner is Player " + (this.determineWinner()+1))
+            }
         })
+    }
+
+    determineWinner() {
+        var i;
+        let score = this.state.score;
+        const mins = score.map(element => {
+            return Math.min.apply(null, element)
+        })
+        let min = Math.max.apply(null, mins)
+        return mins.indexOf(min)
     }
 
     render() {
